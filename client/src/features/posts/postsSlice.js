@@ -87,8 +87,12 @@ export const {
 // Async action to fetch posts
 export const fetchPosts = () => async (dispatch, getState) => {
   dispatch(fetchPostsStart());
-  const token = selectToken(getState());
+  const token=localStorage.getItem("token");
   console.log(token);
+  if(token=== null){
+    const token = selectToken(getState());
+    console.log(token);
+  }
   try {
     const response = await axios.get("http://127.0.0.1:8000/api/posts", {
       headers: {

@@ -7,17 +7,14 @@ import axios from "axios";
 function getAuthToken() {
   // Check if token exists in localStorage
   const token = localStorage.getItem("token");
-  console.log(token);
+  
   // If token is found, return it
   if (token) {
     return token;
   } else {
-    // If token does not exist or is invalid, handle accordingly
-    // For example, redirect the user to the login page
-    window.location.href = "/login"; // Redirect to login page
+    return null;
   }
 }
-
 // Function to retrieve and store CSRF token
 function getCsrfToken() {
   return axios
@@ -40,7 +37,7 @@ export const authSlice = createSlice({
     csrfToken: null,
     error: null,
     isLoading: false,
-    isLoggedIn: false,
+    isLoggedIn: localStorage.getItem("token")?true:false,
   },
   reducers: {
     loginStart: (state) => {
@@ -58,6 +55,10 @@ export const authSlice = createSlice({
     loginFailure: (state, action) => {
       state.isLoading = false;
       state.error = action.payload;
+      const token = localStorage.getItem("token");
+      console.log(token);
+      if(!!token)
+      {window.location.href = "/login";}
     },
     logout: (state) => {
       state.name = null;
@@ -67,6 +68,7 @@ export const authSlice = createSlice({
       state.token = null;
       state.error = null;
       state.isLoggedIn = false;
+      localStorage.removeItem("token");
     },
     registerStart: (state) => {
       state.isLoading = true;

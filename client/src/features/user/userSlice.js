@@ -87,7 +87,12 @@ export const {
 // Async action to fetch users (for admin dashboard)
 export const fetchUsers = () => async (dispatch, getState) => {
   dispatch(fetchUsersStart());
-  const token = selectToken(getState());
+  const token=localStorage.getItem("token");
+  console.log(token);
+  if(token=== null){
+    const token = selectToken(getState());
+    console.log(token);
+  }
   console.log(token);
   try {
     const response = await axios.get("http://localhost:8000/api/users", {
