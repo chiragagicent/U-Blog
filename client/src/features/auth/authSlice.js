@@ -12,9 +12,19 @@ function getAuthToken() {
   if (token) {
     return token;
   } else {
-    return null;
+    return null;    
   }
 }
+
+/* const [token,_setToken] = useState(localStorage.getItem("token"));
+const setToken=(token)=>{
+  if(token){
+    localStorage.setItem("token",token);
+  }
+  else{
+    localStorage.removeItem("token");
+  }
+} */
 // Function to retrieve and store CSRF token
 function getCsrfToken() {
   return axios
@@ -33,7 +43,7 @@ export const authSlice = createSlice({
     email: null,
     password: null,
     role: null,
-    token: null,
+    token: localStorage.getItem("token"),
     csrfToken: null,
     error: null,
     isLoading: false,
@@ -116,6 +126,7 @@ export const login = (email, password) => async (dispatch) => {
     localStorage.setItem("token", response.data.token);
   } catch (error) {
     dispatch(loginFailure(error.response.data.message));
+    localStorage.removeItem("token");
   }
 };
 

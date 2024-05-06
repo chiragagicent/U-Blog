@@ -5,10 +5,9 @@ import { configureStore } from "@reduxjs/toolkit";
 import authReducer from "./features/auth/authSlice.js"; // Assuming you have an auth reducer file
 import postsReducer from "./features/posts/postsSlice"; // Assuming you have a post reducer file
 import userReducer from "./features/user/userSlice"; // Assuming you have a user reducer file
-
-import App from "./App";
+import {RouterProvider} from "react-router-dom";
 import reportWebVitals from "./reportWebVitals";
-
+import router from "./App.js";
 const store = configureStore({
   reducer: {
     auth: authReducer, // Replace 'authReducer' with your actual auth reducer
@@ -22,7 +21,7 @@ const store = configureStore({
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <App />
+      <RouterProvider router={router} />
     </Provider>
   </React.StrictMode>,
   document.getElementById("root")
