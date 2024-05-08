@@ -42,7 +42,7 @@ export const authSlice = createSlice({
     name: null,
     email: null,
     password: null,
-    role: null,
+    role: localStorage.getItem("role"),
     token: localStorage.getItem("token"),
     csrfToken: null,
     error: null,
@@ -79,6 +79,7 @@ export const authSlice = createSlice({
       state.error = null;
       state.isLoggedIn = false;
       localStorage.removeItem("token");
+      localStorage.removeItem("role");
     },
     registerStart: (state) => {
       state.isLoading = true;
@@ -124,9 +125,11 @@ export const login = (email, password) => async (dispatch) => {
     });
     dispatch(loginSuccess(response.data));
     localStorage.setItem("token", response.data.token);
+    localStorage.setItem("role",response.data.role);
   } catch (error) {
     dispatch(loginFailure(error.response.data.message));
     localStorage.removeItem("token");
+    localStorage.removeItem("role");
   }
 };
 

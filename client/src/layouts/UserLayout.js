@@ -2,12 +2,15 @@ import {Navigate, Outlet} from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 import React from 'react'
-import { selectIsLoggedIn,selectRole } from "../features/auth/authSlice";
+import { logout, selectIsLoggedIn,selectRole } from "../features/auth/authSlice";
 function UserLayout() {
 const isLoggedIn = useSelector(selectIsLoggedIn); // Get login status
 const role = useSelector(selectRole);
+const dispatch = useDispatch();
+
     if (!isLoggedIn || role!=="regular"){
-        localStorage.removeItem("token");
+  
+        dispatch(logout());
         return <Navigate to="/login" />
     }
   return (
