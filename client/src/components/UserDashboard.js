@@ -5,14 +5,14 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   fetchPosts,
-  selectPosts,
   deletePost,
   addPost as addPostAction,
   updatePost as updatePostAction,
+  setPosts
 } from "../features/posts/postsSlice";
 import { useNavigate } from "react-router-dom";
 import { selectIsLoggedIn, logout } from "../features/auth/authSlice";
-
+import { selectPosts } from "../features/posts/postsSlice";
 const UserDashboard = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -72,15 +72,16 @@ const UserDashboard = () => {
   };
 
   const handleLogout = () => {
+    dispatch(setPosts());
     dispatch(logout());
   };
-/* 
-  useEffect(() => {
+ 
+/*   useEffect(() => {
     if (!isLoggedIn) {
-      navigate("/login");
+      state.
     }
   }, [isLoggedIn,navigate]);
- */
+  */
   return (
     <div className="container mx-auto p-4">
       <h2 className="text-2xl font-bold mb-4">User Dashboard</h2>

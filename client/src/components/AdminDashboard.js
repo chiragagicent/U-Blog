@@ -11,6 +11,7 @@ import {
   deleteUser,
   addUser as addUserAction,
   updateUser as updateUserAction,
+  setUsers,
 } from "../features/user/userSlice";
 
 const AdminDashboard = () => {
@@ -85,6 +86,7 @@ const AdminDashboard = () => {
     setEditUserId(null);
   };
   const handleLogout = () => {
+    dispatch(setUsers());
     dispatch(logout());
   };
 

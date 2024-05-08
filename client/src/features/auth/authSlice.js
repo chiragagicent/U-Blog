@@ -80,6 +80,7 @@ export const authSlice = createSlice({
       state.isLoggedIn = false;
       localStorage.removeItem("token");
       localStorage.removeItem("role");
+      
     },
     registerStart: (state) => {
       state.isLoading = true;

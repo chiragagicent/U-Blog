@@ -66,6 +66,9 @@ export const userSlice = createSlice({
       state.isLoading = false;
       state.error = action.payload;
     },
+    setUserNull:(state)=>{
+      state.users= null;
+    },
   },
 });
 
@@ -82,6 +85,7 @@ export const {
   deleteUserStart,
   deleteUserSuccess,
   deleteUserFailure,
+  setUserNull,
 } = userSlice.actions;
 
 // Async action to fetch users (for admin dashboard)
@@ -163,6 +167,11 @@ export const deleteUser = (userId) => async (dispatch, getState) => {
   }
 };
 
+export const setUsers = ()=> async(dispatch)=>{
+  console.log("Entry");
+  dispatch(setUserNull());
+  console.log("Users set to null successfully");
+};
 export const selectUsers = (state) => state.user.users;
 
 export default userSlice.reducer;

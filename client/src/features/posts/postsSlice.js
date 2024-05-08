@@ -22,6 +22,7 @@ export const postSlice = createSlice({
     fetchPostsFailure: (state, action) => {
       state.isLoading = false;
       state.error = action.payload;
+      state.posts = null;
     },
     addPostStart: (state) => {
       state.isLoading = true;
@@ -66,6 +67,9 @@ export const postSlice = createSlice({
       state.isLoading = false;
       state.error = action.payload;
     },
+    setPostNull: (state) =>{
+      state.posts = null;
+    }
   },
 });
 
@@ -82,6 +86,7 @@ export const {
   deletePostStart,
   deletePostSuccess,
   deletePostFailure,
+  setPostNull,
 } = postSlice.actions;
 
 // Async action to fetch posts
@@ -89,10 +94,7 @@ export const fetchPosts = () => async (dispatch, getState) => {
   dispatch(fetchPostsStart());
   const token=localStorage.getItem("token");
   console.log(token);
-  if(token=== null){
-    const token = selectToken(getState());
-    console.log(token);
-  }
+
   try {
     const response = await axios.get("http://127.0.0.1:8000/api/posts", {
       headers: {
@@ -161,6 +163,10 @@ export const deletePost = (postId) => async (dispatch, getState) => {
   }
 };
 
+export const setPosts = () =>async (dispatch) =>{
+  console.log("Entry")
+  dispatch(setPostNull());
+  console.log("posts set to null successfully");
+}
 export const selectPosts = (state) => state.posts.posts;
-
 export default postSlice.reducer;
