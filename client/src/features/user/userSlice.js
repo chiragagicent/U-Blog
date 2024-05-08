@@ -67,7 +67,7 @@ export const userSlice = createSlice({
       state.error = action.payload;
     },
     setUserNull:(state)=>{
-      state.users= null;
+      state.users= [];
     },
   },
 });

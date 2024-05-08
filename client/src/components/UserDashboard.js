@@ -72,8 +72,8 @@ const UserDashboard = () => {
   };
 
   const handleLogout = () => {
-    dispatch(setPosts());
     dispatch(logout());
+    dispatch(setPosts());
   };
  
 /*   useEffect(() => {

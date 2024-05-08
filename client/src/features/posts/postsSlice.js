@@ -68,7 +68,7 @@ export const postSlice = createSlice({
       state.error = action.payload;
     },
     setPostNull: (state) =>{
-      state.posts = null;
+      state.posts = [];
     }
   },
 });
