@@ -9,8 +9,12 @@ const role = useSelector(selectRole);
 const dispatch = useDispatch();
 
     if (!isLoggedIn || role!=="regular"){
-  
-        dispatch(logout());
+        if(isLoggedIn)
+          {
+            
+            dispatch(logout());
+            return <Navigate to="/login" />
+          }
         return <Navigate to="/login" />
     }
   return (
@@ -19,7 +23,7 @@ const dispatch = useDispatch();
             <Outlet />
         </div>
     </div>
-  )
+  );
 }
 
 export default UserLayout

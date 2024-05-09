@@ -8,7 +8,12 @@ const isLoggedIn = useSelector(selectIsLoggedIn); // Get login status
 const role = useSelector(selectRole);
 const dispatch = useDispatch();
     if (!isLoggedIn || role!=="admin"){
-        dispatch(logout());
+      if(isLoggedIn)
+        {
+          
+          dispatch(logout());
+          return <Navigate to="/login" />
+        }
         return <Navigate to="/login" />
     }
   return (
@@ -17,7 +22,7 @@ const dispatch = useDispatch();
             <Outlet />
         </div>
     </div>
-  )
+  );
 }
 
 export default AdminLayout

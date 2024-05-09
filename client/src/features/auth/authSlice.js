@@ -2,7 +2,7 @@
 
 import { createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-
+import { useNavigate } from "react-router-dom";
 // Function to retrieve authentication token from storage
 function getAuthToken() {
   // Check if token exists in localStorage
@@ -80,6 +80,7 @@ export const authSlice = createSlice({
       state.isLoggedIn = false;
       localStorage.removeItem("token");
       localStorage.removeItem("role");
+      
       
     },
     registerStart: (state) => {

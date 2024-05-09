@@ -1,6 +1,3 @@
-
-
-
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -72,8 +69,8 @@ const UserDashboard = () => {
   };
 
   const handleLogout = () => {
-    dispatch(logout());
     dispatch(setPosts());
+    dispatch(logout());
   };
  
 /*   useEffect(() => {

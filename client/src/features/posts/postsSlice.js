@@ -110,7 +110,7 @@ export const fetchPosts = () => async (dispatch, getState) => {
 // Async action to add a post
 export const addPost = (title, content) => async (dispatch, getState) => {
   dispatch(addPostStart());
-  const token = selectToken(getState());
+  const token = localStorage.getItem("token");
   try {
     const response = await axios.post(
       "http://127.0.0.1:8000/api/posts",
@@ -130,7 +130,7 @@ export const addPost = (title, content) => async (dispatch, getState) => {
 // Async action to update a post
 export const updatePost = (postId, postData) => async (dispatch, getState) => {
   dispatch(updatePostStart());
-  const token = selectToken(getState());
+  const token = localStorage.getItem("token");
   try {
     const response = await axios.put(
       `http://127.0.0.1:8000/api/posts/${postId}`,
@@ -150,7 +150,7 @@ export const updatePost = (postId, postData) => async (dispatch, getState) => {
 // Async action to delete a post
 export const deletePost = (postId) => async (dispatch, getState) => {
   dispatch(deletePostStart());
-  const token = selectToken(getState());
+  const token = localStorage.getItem("token");
   try {
     await axios.delete(`http://127.0.0.1:8000/api/posts/${postId}`, {
       headers: {
