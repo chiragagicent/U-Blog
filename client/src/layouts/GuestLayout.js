@@ -10,7 +10,8 @@ function GuestLayout() {
     if(isLoggedIn)
         {   
             localStorage.removeItem("token");
-            <Navigate to="/"/>
+            localStorage.removeItem("role");
+            <Navigate to="/login"/>
         }
   return (
     <div>

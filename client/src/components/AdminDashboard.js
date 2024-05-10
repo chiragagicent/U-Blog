@@ -1,6 +1,3 @@
-
-
-
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -85,145 +82,148 @@ const AdminDashboard = () => {
     setEditformData({ name: "", email: "", password: "", role: "" });
     setEditUserId(null);
   };
+
   const handleLogout = () => {
     dispatch(setUsers());
     dispatch(logout());
   };
 
-/*   useEffect(() => {
-    if (!isLoggedIn) {
-      navigate("/login");
-    }
-  }, [isLoggedIn,navigate]); */
-
   return (
-    <div className="container mx-auto p-4">
-      <h2 className="text-2xl font-bold mb-4">Admin Dashboard</h2>
-      <div className="mb-4">
-        <button
-          onClick={handleLogout}
-          className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 focus:outline-none"
-        >
-          Logout
-        </button>
-
-        <input
-          type="text"
-          placeholder="Name"
-          value={formData.name}
-          onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-          disabled={editUserId !== null}
-          className="border rounded px-4 py-2 mt-2 mr-2 focus:outline-none focus:border-blue-500"
-        />
-        <input
-          type="email"
-          placeholder="Email"
-          value={formData.email}
-          onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-          disabled={editUserId !== null}
-          className="border rounded px-4 py-2 mt-2 mr-2 focus:outline-none focus:border-blue-500"
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          value={formData.password}
-          onChange={(e) =>
-            setFormData({ ...formData, password: e.target.value })
-          }
-          disabled={editUserId !== null}
-          className="border rounded px-4 py-2 mt-2 mr-2 focus:outline-none focus:border-blue-500"
-        />
-        <input
-          type="text"
-          placeholder="Role"
-          value={formData.role}
-          onChange={(e) => setFormData({ ...formData, role: e.target.value })}
-          disabled={editUserId !== null}
-          className="border rounded px-4 py-2 mt-2 mr-2 focus:outline-none focus:border-blue-500"
-        />
-        <button
-          onClick={handleAddUser}
-          disabled={editUserId !== null}
-          className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 focus:outline-none"
-        >
-          Add User
-        </button>
+    <div className="h-screen overflow-y-auto bg-gradient-to-br from-purple-900 to-blue-900 text-white">
+      <div className="container mx-auto p-4">
+        <h2 className="text-3xl font-bold mb-4">Admin Dashboard</h2>
+        <div className="mb-4 flex items-center">
+          <button
+            onClick={handleLogout}
+            className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 focus:outline-none mr-4"
+          >
+            Logout
+          </button>
+          <input
+            type="text"
+            placeholder="Name"
+            value={formData.name}
+            onChange={(e) =>
+              setFormData({ ...formData, name: e.target.value })
+            }
+            disabled={editUserId !== null}
+            className="border rounded px-4 py-2 mr-2 focus:outline-none focus:border-blue-500 bg-gray-800 text-white flex-grow"
+          />
+          <input
+            type="email"
+            placeholder="Email"
+            value={formData.email}
+            onChange={(e) =>
+              setFormData({ ...formData, email: e.target.value })
+            }
+            disabled={editUserId !== null}
+            className="border rounded px-4 py-2 mr-2 focus:outline-none focus:border-blue-500 bg-gray-800 text-white flex-grow"
+          />
+          <input
+            type="password"
+            placeholder="Password"
+            value={formData.password}
+            onChange={(e) =>
+              setFormData({ ...formData, password: e.target.value })
+            }
+            disabled={editUserId !== null}
+            className="border rounded px-4 py-2 mr-2 focus:outline-none focus:border-blue-500 bg-gray-800 text-white flex-grow"
+          />
+          <input
+            type="text"
+            placeholder="Role"
+            value={formData.role}
+            onChange={(e) =>
+              setFormData({ ...formData, role: e.target.value })
+            }
+            disabled={editUserId !== null}
+            className="border rounded px-4 py-2 mr-2 focus:outline-none focus:border-blue-500 bg-gray-800 text-white flex-grow"
+          />
+          <button
+            onClick={handleAddUser}
+            disabled={editUserId !== null}
+            className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 focus:outline-none"
+          >
+            Add User
+          </button>
+        </div>
+        <ul>
+          {users.map((user) => (
+            <li key={user.id} className="mb-4">
+              <h3 className="text-xl font-bold mb-2">{user.name}</h3>
+              <p>{user.email}</p>
+              <p>{user.role}</p>
+              {editUserId === user.id ? (
+                <form onSubmit={handleEditFormSubmit} className="mt-4">
+                  <input
+                    type="text"
+                    placeholder="Name"
+                    value={editformData.name}
+                    name="name"
+                    onChange={handleEditFormChange}
+                    className="border rounded px-4 py-2 mr-2 focus:outline-none focus:border-blue-500 bg-gray-800 text-white"
+                  />
+                  <input
+                    type="email"
+                    placeholder="Email"
+                    value={editformData.email}
+                    name="email"
+                    onChange={handleEditFormChange}
+                    className="border rounded px-4 py-2 mr-2 focus:outline-none focus:border-blue-500 bg-gray-800 text-white"
+                  />
+                  <input
+                    type="password"
+                    placeholder="Password"
+                    value={editformData.password}
+                    name="password"
+                    onChange={handleEditFormChange}
+                    className="border rounded px-4 py-2 mr-2 focus:outline-none focus:border-blue-500 bg-gray-800 text-white"
+                  />
+                  <input
+                    type="text"
+                    placeholder="Role"
+                    value={editformData.role}
+                    name="role"
+                    onChange={handleEditFormChange}
+                    className="border rounded px-4 py-2 mr-2 focus:outline-none focus:border-blue-500 bg-gray-800 text-white"
+                  />
+                  <button
+                    type="submit"
+                    className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 focus:outline-none mr-2"
+                  >
+                    Update
+                  </button>
+                  <button
+                    type="button"
+                    onClick={handleCancelEdit}
+                    className="bg-gray-300 text-gray-700 px-4 py-2 rounded hover:bg-gray-400 focus:outline-none"
+                  >
+                    Cancel
+                  </button>
+                </form>
+              ) : (
+                <div className="mt-4">
+                  <button
+                    onClick={() => handleUpdateUser(user.id)}
+                    className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 focus:outline-none mr-2"
+                  >
+                    Edit User
+                  </button>
+                  <button
+                    onClick={() => handleDelete(user.id)}
+                    className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 focus:outline-none"
+                  >
+                    Delete User
+                  </button>
+                </div>
+              )}
+            </li>
+          ))}
+        </ul>
       </div>
-      <ul>
-        {users.map((user) => (
-          <li key={user.id} className="mb-4">
-            <h3 className="text-xl font-bold mb-2">{user.name}</h3>
-            <p>{user.email}</p>
-            <p>{user.role}</p>
-            {editUserId === user.id ? (
-              <form onSubmit={handleEditFormSubmit} className="mt-4">
-                <input
-                  type="text"
-                  placeholder="Name"
-                  value={editformData.name}
-                  name="name"
-                  onChange={handleEditFormChange}
-                  className="border rounded px-4 py-2 mt-2 mr-2 focus:outline-none focus:border-blue-500"
-                />
-                <input
-                  type="email"
-                  placeholder="Email"
-                  value={editformData.email}
-                  name="email"
-                  onChange={handleEditFormChange}
-                  className="border rounded px-4 py-2 mt-2 mr-2 focus:outline-none focus:border-blue-500"
-                />
-                <input
-                  type="password"
-                  placeholder="Password"
-                  value={editformData.password}
-                  name="password"
-                  onChange={handleEditFormChange}
-                  className="border rounded px-4 py-2 mt-2 mr-2 focus:outline-none focus:border-blue-500"
-                />
-                <input
-                  type="text"
-                  placeholder="Role"
-                  value={editformData.role}
-                  name="role"
-                  onChange={handleEditFormChange}
-                  className="border rounded px-4 py-2 mt-2 mr-2 focus:outline-none focus:border-blue-500"
-                />
-                <button
-                  type="submit"
-                  className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 focus:outline-none mr-2"
-                >
-                  Update
-                </button>
-                <button
-                  type="button"
-                  onClick={handleCancelEdit}
-                  className="bg-gray-300 text-gray-700 px-4 py-2 rounded hover:bg-gray-400 focus:outline-none"
-                >
-                  Cancel
-                </button>
-              </form>
-            ) : (
-              <div className="mt-4">
-                <button
-                  onClick={() => handleUpdateUser(user.id)}
-                  className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 focus:outline-none mr-2"
-                >
-                  Edit User
-                </button>
-                <button
-                  onClick={() => handleDelete(user.id)}
-                  className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 focus:outline-none"
-                >
-                  Delete User
-                </button>
-              </div>
-            )}
-          </li>
-        ))}
-      </ul>
     </div>
   );
 };
 
 export default AdminDashboard;
+
